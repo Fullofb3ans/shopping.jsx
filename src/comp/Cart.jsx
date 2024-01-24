@@ -30,7 +30,7 @@ export function Cart(props) {
 					<div>
 						{props.items.map((e) => {
 							return (
-								<div onClick={() => props.rm(e.mainId)} style={{ paddingBottom: '2%' }}>
+								<div onClick={() => props.rm(e.id)} style={{ paddingBottom: '2%' }}>
 									Название: {e.name}
 									<br />
 									Цена: {e.price}

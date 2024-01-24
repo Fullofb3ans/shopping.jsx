@@ -30,7 +30,7 @@ function App() {
 
 	function getOut(item) {
 		console.log(item);
-		setCart(cartItems.filter((itemIn) => itemIn == item));
+		cartItems.filter((itemIn) => itemIn == item);
 	}
 
 	return (
