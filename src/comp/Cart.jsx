@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 export function Cart(props) {
-	console.log(props);
+	// console.log(props);
 	const [show, setShow] = useState(false);
 	const [cartPrice, setPrice] = useState('В корзине пусто');
 
@@ -30,7 +30,7 @@ export function Cart(props) {
 					<div>
 						{props.items.map((e) => {
 							return (
-								<div onClick={() => props.rm(e.name)} style={{ paddingBottom: '2%' }}>
+								<div onClick={() => props.rm(e.mainId)} style={{ paddingBottom: '2%' }}>
 									Название: {e.name}
 									<br />
 									Цена: {e.price}

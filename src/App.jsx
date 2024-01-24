@@ -17,20 +17,19 @@ function App() {
 	}, []);
 
 	function getIn(item) {
-		console.log(cartItems);
-		if (!cartItems.find(item)) {
-			console.log(item);
-			setCart([
-				...cartItems,
-				{
-					name: item.e,
-					price: item.b,
-				},
-			]);
-		} else return;
+		console.log(item);
+		setCart([
+			...cartItems,
+			{
+				name: item.e,
+				price: item.b,
+				key: item.c,
+			},
+		]);
 	}
 
 	function getOut(item) {
+		console.log(item);
 		setCart(cartItems.filter((itemIn) => itemIn == item));
 	}
 

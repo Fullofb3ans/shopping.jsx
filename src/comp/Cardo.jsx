@@ -2,8 +2,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 export function Cardo(props) {
-	console.log('cardo');
-	console.log(props.f);
+	// console.log('cardo');
+	// console.log(props.f);
 
 	return (
 		<Card
@@ -22,7 +22,7 @@ export function Cardo(props) {
 				<Card.Title>{props.displayName}</Card.Title>
 				<Card.Text>{props.displayDescription}</Card.Text>
 				<Card.Text>{props.rarity.name}</Card.Text>
-				<Button onClick={() => props.f({ e: props.displayName, b: props.finalPrice })} variant="primary">
+				<Button onClick={() => props.f({ e: props.displayName, b: props.finalPrice, c: props.mainId })} variant="primary">
 					{props.finalPrice}
 				</Button>
 			</Card.Body>
