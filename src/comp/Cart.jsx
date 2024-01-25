@@ -27,13 +27,14 @@ export function Cart(props) {
 					<Modal.Title>Корзина</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<div>
+					<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
 						{props.items.map((e) => {
 							return (
-								<div onClick={() => props.rm(e.id)} style={{ paddingBottom: '2%' }}>
+								<div onClick={() => props.rm(e.key)} style={{ marginBottom: '2%', border: '0.5px solid #0000004d', padding: '1%', borderRadius: '15px', cursor: 'pointer' }}>
 									Название: {e.name}
 									<br />
 									Цена: {e.price}
+									<div></div>
 								</div>
 							);
 						})}

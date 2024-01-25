@@ -3,10 +3,15 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Cards } from './comp/Cards';
 import { Cart } from './comp/Cart';
+import { Alerto } from './comp/Alerto';
 
 function App() {
 	const [items, setItems] = useState('');
 	const [cartItems, setCart] = useState([]);
+	const [showModal, setShow] = useState(false);
+	let closeModal = () => {
+		setShow(false);
+	};
 
 	useEffect(() => {
 		fetch('https://fortniteapi.io/v2/shop?lang=ru', {
@@ -18,23 +23,28 @@ function App() {
 
 	function getIn(item) {
 		console.log(item);
-		setCart([
-			...cartItems,
-			{
-				name: item.e,
-				price: item.b,
-				key: item.c,
-			},
-		]);
+		if (!cartItems.some((key) => key.key == item.c)) {
+			setCart([
+				...cartItems,
+				{
+					name: item.e,
+					price: item.b,
+					key: item.c,
+				},
+			]);
+		}
+		setShow(true);
 	}
 
-	function getOut(item) {
-		console.log(item);
-		cartItems.filter((itemIn) => itemIn == item);
+	function getOut(key) {
+		console.log(key);
+		console.log(cartItems);
+		setCart(cartItems.filter((item) => item.key !== key));
 	}
 
 	return (
 		<div style={{ paddingBottom: '2%' }}>
+			<Alerto close={closeModal} show={showModal} f={setShow} />
 			<Cart items={cartItems} rm={getOut} />
 			<div
 				style={{
