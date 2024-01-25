@@ -1,11 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { Cards } from './comp/Cards';
 import { Cart } from './comp/Cart';
 import { Alerto } from './comp/Alerto';
+import { useRef } from 'react';
 
 function App() {
+	let mainRef = useRef();
+
 	const [items, setItems] = useState('');
 	const [cartItems, setCart] = useState([]);
 	const [showModal, setShow] = useState(false);
@@ -22,7 +25,7 @@ function App() {
 	}, []);
 
 	function getIn(item) {
-		console.log(item);
+		// console.log(item);
 		if (!cartItems.some((key) => key.key == item.c)) {
 			setCart([
 				...cartItems,
@@ -32,19 +35,24 @@ function App() {
 					key: item.c,
 				},
 			]);
+			setShow(true);
+			return (mainRef.current = item.e);
+		} else {
+			setShow(false);
+			setTimeout(() => {
+				setShow(true);
+			}, 100);
+			return (mainRef.current = 'Не может быть');
 		}
-		setShow(true);
 	}
 
 	function getOut(key) {
-		console.log(key);
-		console.log(cartItems);
 		setCart(cartItems.filter((item) => item.key !== key));
 	}
 
 	return (
 		<div style={{ paddingBottom: '2%' }}>
-			<Alerto close={closeModal} show={showModal} f={setShow} />
+			<Alerto name={mainRef.current} close={closeModal} show={showModal} f={setShow} />
 			<Cart items={cartItems} rm={getOut} />
 			<div
 				style={{

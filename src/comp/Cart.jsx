@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 export function Cart(props) {
-	// console.log(props);
+	console.log(props);
 	const [show, setShow] = useState(false);
 	const [cartPrice, setPrice] = useState('В корзине пусто');
 
@@ -20,6 +20,8 @@ export function Cart(props) {
 			<div style={{ textAlign: 'right', padding: '1%' }}>
 				<Button onClick={handleShow}>
 					<i className="fa fa-shopping-cart" />
+					<br />
+					{props.items.length}
 				</Button>
 			</div>
 			<Modal show={show} onHide={handleClose}>
