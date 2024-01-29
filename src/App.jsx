@@ -25,7 +25,7 @@ function App() {
 	}, []);
 
 	function getIn(item) {
-		// console.log(item);
+		console.log(item);
 		if (!cartItems.some((key) => key.key == item.c)) {
 			setCart([
 				...cartItems,
@@ -33,16 +33,29 @@ function App() {
 					name: item.e,
 					price: item.b,
 					key: item.c,
+					num: 1,
 				},
 			]);
-			setShow(true);
-			return (mainRef.current = item.e);
-		} else {
 			setShow(false);
 			setTimeout(() => {
 				setShow(true);
-			}, 100);
-			return (mainRef.current = 'Не может быть');
+			}, 50);
+			return (mainRef.current = item.e + ' был ');
+		} else {
+			console.log('poehali');
+			setCart(
+				cartItems.map((key) => {
+					if (key.key === item.c) {
+						return { ...key, num: key.num + 1 };
+					}
+					return key;
+				})
+			);
+			setShow(false);
+			setTimeout(() => {
+				setShow(true);
+			}, 50);
+			return (mainRef.current = item.e + ' был ');
 		}
 	}
 
@@ -50,10 +63,36 @@ function App() {
 		setCart(cartItems.filter((item) => item.key !== key));
 	}
 
+	function plus(item) {
+		setCart(
+			cartItems.map((key) => {
+				console.log(key);
+				console.log(item);
+
+				if (key.key == item) {
+					return { ...key, num: key.num + 1 };
+				}
+				return key;
+			})
+		);
+	}
+	function minus(item) {
+		setCart(
+			cartItems.map((key) => {
+				console.log('ИМИНУс');
+
+				if (key.key == item && key.num > 0) {
+					return { ...key, num: key.num - 1 };
+				}
+				return key;
+			})
+		);
+	}
+
 	return (
 		<div style={{ paddingBottom: '2%' }}>
 			<Alerto name={mainRef.current} close={closeModal} show={showModal} f={setShow} />
-			<Cart items={cartItems} rm={getOut} />
+			<Cart minusF={(e) => minus(e)} plusF={(e) => plus(e)} items={cartItems} rm={getOut} />
 			<div
 				style={{
 					padding: '1%',

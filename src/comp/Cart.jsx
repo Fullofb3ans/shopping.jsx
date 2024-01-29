@@ -9,7 +9,7 @@ export function Cart(props) {
 	const [cartPrice, setPrice] = useState('В корзине пусто');
 
 	useEffect(() => {
-		setPrice(props.items.reduce((sum, item) => sum + item.price, 0));
+		setPrice(props.items.reduce((sum, item) => sum + item.price * item.num, 0));
 	}, [props.items]);
 
 	const handleClose = () => setShow(false);
@@ -21,7 +21,7 @@ export function Cart(props) {
 				<Button onClick={handleShow}>
 					<i className="fa fa-shopping-cart" />
 					<br />
-					{props.items.length}
+					{props.items.reduce((sum, item) => (sum += item.num), 0)}
 				</Button>
 			</div>
 			<Modal show={show} onHide={handleClose}>
@@ -32,11 +32,25 @@ export function Cart(props) {
 					<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
 						{props.items.map((e) => {
 							return (
-								<div onClick={() => props.rm(e.key)} style={{ marginBottom: '2%', border: '0.5px solid #0000004d', padding: '1%', borderRadius: '15px', cursor: 'pointer' }}>
-									Название: {e.name}
-									<br />
-									Цена: {e.price}
-									<div></div>
+								<div>
+									<div style={{ marginBottom: '2%', border: '0.5px solid #0000004d', padding: '1%', borderRadius: '15px', cursor: 'pointer' }}>
+										Название: {e.name}
+										<br />
+										Цена: {e.price * e.num}
+										<br />
+										кол-во: {e.num}
+									</div>
+									<div style={{ display: 'flex', color: 'blueviolet', justifyContent: 'right', alignContent: 'space-around ', gap: '4%', paddingBottom: '4%' }}>
+										<div onClick={() => props.plusF(e.key)}>
+											<i className="fa fa-plus" style={{ cursor: 'pointer' }} />
+										</div>
+										<div onClick={() => props.minusF(e.key)}>
+											<i className="fa fa-minus" style={{ cursor: 'pointer' }} />
+										</div>
+										<div onClick={() => props.rm(e.key)}>
+											<i className="fa fa-trash" style={{ cursor: 'pointer' }} />
+										</div>
+									</div>
 								</div>
 							);
 						})}

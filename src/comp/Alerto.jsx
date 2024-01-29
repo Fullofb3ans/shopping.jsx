@@ -9,7 +9,7 @@ export function Alerto(props) {
 					<img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
 					<strong className="me-auto">Хэй</strong>
 				</Toast.Header>
-				<Toast.Body>{props.name} был добавлен в корзину</Toast.Body>
+				<Toast.Body>{props.name} добавлен в корзину</Toast.Body>
 			</Toast>
 		);
 	} else return null;
